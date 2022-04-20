@@ -1,0 +1,47 @@
+{% set name = "pyre-extensions" %}
+{% set version = "0.0.27" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/pyre-extensions-{{ version }}.tar.gz
+  sha256: 767607736d5d2da4db3377e016746776a195987fb3c61c7b38b442160e67771f
+
+build:
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv
+  number: 0
+
+requirements:
+  host:
+    - pip
+    - python >=3.7
+  run:
+    - python >=3.7
+    - typing-extensions
+    - typing_inspect
+
+test:
+  source_files:
+    - pyre_extensions/tests
+  imports:
+    - pyre_extensions
+  commands:
+    - pip check
+    - pytest -vvv --capture=tee-sys ./pyre_extensions/tests
+  requires:
+    - pip
+    - pytest
+
+about:
+  home: https://pyre-check.org
+  dev_url: https://github.com/facebook/pyre-check/tree/main/pyre_extensions
+  summary: Extensions to the standard typing module that are supported by the Pyre typechecker.
+  license: MIT
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - thewchan
