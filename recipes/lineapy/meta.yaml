@@ -47,7 +47,9 @@ test:
     - pip
 
 about:
-  home: https://github.com/LineaLabs/lineapy/
+  home: https://lineapy.org/
+  dev_url: https://github.com/LineaLabs/lineapy/
+  doc_url: https://docs.lineapy.org/en/latest/
   summary: Data engineering, simplified. LineaPy creates a frictionless path for taking your data science artifact from development to production.
   license: Apache-2.0
   license_file: LICENSE.txt
