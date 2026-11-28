@@ -1,0 +1,46 @@
+schema_version: 1
+
+context:
+  version: "0.2.10"
+
+package:
+  name: fastaudit
+  version: ${{ version }}
+
+source:
+  url: https://files.pythonhosted.org/packages/source/f/fastaudit/fastaudit-${{ version }}.tar.gz
+  sha256: 01e811073910fc66462d5ea835bdb27f66efaaf65646c9f7ea9a876de513b42a
+
+build:
+  number: 0
+  noarch: python
+  script: ${{ PYTHON }} -m pip install . -vv
+
+requirements:
+  host:
+    - python ${{ python_min }}.*
+    - setuptools >=68
+    - pip
+  run:
+    - python >=${{ python_min }}
+    - fastcore >=1.14.5
+
+tests:
+  - python:
+      imports:
+        - fastaudit
+      pip_check: true
+      python_version:
+        - ${{ python_min }}.*
+        - "*"
+      
+
+about:
+  summary: A lightweight execution guard for running LLM-generated Python in a normal Python process.
+  license: Apache-2.0
+  license_file: LICENSE
+  homepage: https://github.com/AnswerDotAI/fastaudit
+
+extra:
+  recipe-maintainers:
+    - thewchan
