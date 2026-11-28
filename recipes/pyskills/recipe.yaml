@@ -1,0 +1,58 @@
+schema_version: 1
+
+context:
+  version: "0.0.40"
+
+package:
+  name: pyskills
+  version: ${{ version }}
+
+source:
+  url: https://files.pythonhosted.org/packages/source/p/pyskills/pyskills-${{ version }}.tar.gz
+  sha256: 59383e51196a9c0ac7d70a72317df5f1ba0511fba14ff2ef6135957db238a74c
+
+build:
+  number: 0
+  noarch: python
+  script: ${{ PYTHON }} -m pip install . -vv
+  python:
+    entry_points:
+      - pyskills-doc = pyskills.cli:doc_cli
+      - pyskills-llms = pyskills.llms:llms_cli
+
+requirements:
+  host:
+    - python ${{ python_min }}.*
+    - setuptools >=77
+    - pip
+  run:
+    - python >=${{ python_min }}
+    - fastaudit
+    - fastcore >=2.3.3
+    - pyyaml >=6.0
+
+tests:
+  - python:
+      imports:
+        - pyskills
+      pip_check: true
+      python_version:
+        - ${{ python_min }}.*
+        - "*"
+  - requirements:
+      run:
+        - python ${{ python_min }}.*
+    script:
+      - pyskills-doc --help
+      - pyskills-llms --help
+
+about:
+  summary: Python-native skills system
+  license: Apache-2.0
+  license_file: LICENSE
+  homepage: https://github.com/AnswerDotAI/pyskills
+  documentation: https://AnswerDotAI.github.io/pyskills/
+
+extra:
+  recipe-maintainers:
+    - thewchan
